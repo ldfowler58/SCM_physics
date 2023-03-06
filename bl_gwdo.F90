@@ -27,7 +27,7 @@ contains
                      g_, cp_, rd_, rv_, fv_, pi_,                              &
                      dxmeter, deltim,                                          &
                      its, ite, kte, kme,                                       &
-                     errmsg, errflg                                            )
+                     l_norot, errmsg, errflg                                   )
 !-------------------------------------------------------------------------------
 !  
 !  abstract : 
@@ -96,6 +96,7 @@ contains
    real(kind=kind_phys), dimension(its:ite)          , intent(in   ) :: var, oc1, &
                                                                         oa2d1, oa2d2, oa2d3, oa2d4, &
                                                                         ol2d1, ol2d2, ol2d3, ol2d4
+   logical                                           , intent(in   ) :: l_norot
    character(len=*)                                  , intent(  out) :: errmsg
    integer                                           , intent(  out) :: errflg
 !
@@ -227,9 +228,13 @@ contains
        
        !  Earth-relative zonal and meridional winds (m/s)
 
-       u1(i,k) = uproj(i,k)*cosa(i) - vproj(i,k)*sina(i)
-       v1(i,k) = uproj(i,k)*sina(i) + vproj(i,k)*cosa(i)
-
+       if (l_norot) then
+          u1(i,k) = uproj(i,k)
+          v1(i,k) = uproj(i,k)
+       else
+          u1(i,k) = uproj(i,k)*cosa(i) - vproj(i,k)*sina(i)
+          v1(i,k) = uproj(i,k)*sina(i) + vproj(i,k)*cosa(i)
+       endif
      enddo
    enddo
 
@@ -590,15 +595,27 @@ contains
 !
    do k = kts,kte
       do i = its,ite
-         rublten(i,k) = rublten(i,k)+dudt(i,k)*cosa(i) + dvdt(i,k)*sina(i)
-         rvblten(i,k) = rvblten(i,k)-dudt(i,k)*sina(i) + dvdt(i,k)*cosa(i)
-         dtaux3d(i,k) = dtaux2d(i,k)*cosa(i) + dtauy2d(i,k)*sina(i)
-         dtauy3d(i,k) =-dtaux2d(i,k)*sina(i) + dtauy2d(i,k)*cosa(i)
+         if (l_norot) then
+            rublten(i,k) = dudt(i,k)
+            rvblten(i,k) = dvdt(i,k)
+            dtaux3d(i,k) = dtaux2d(i,k)
+            dtauy3d(i,k) = dtauy2d(i,k)
+         else
+            rublten(i,k) = rublten(i,k)+dudt(i,k)*cosa(i) + dvdt(i,k)*sina(i)
+            rvblten(i,k) = rvblten(i,k)-dudt(i,k)*sina(i) + dvdt(i,k)*cosa(i)
+            dtaux3d(i,k) = dtaux2d(i,k)*cosa(i) + dtauy2d(i,k)*sina(i)
+            dtauy3d(i,k) =-dtaux2d(i,k)*sina(i) + dtauy2d(i,k)*cosa(i)
+         endif
      enddo
    enddo
    do i = its,ite
-      dusfcg(i) = dusfc(i)*cosa(i) + dvsfc(i)*sina(i)
-      dvsfcg(i) =-dusfc(i)*sina(i) + dvsfc(i)*cosa(i)
+      if (l_norot) then
+         dusfcg(i) = dusfc(i)
+         dvsfcg(i) = dvsfc(i)
+      else
+         dusfcg(i) = dusfc(i)*cosa(i) + dvsfc(i)*sina(i)
+         dvsfcg(i) =-dusfc(i)*sina(i) + dvsfc(i)*cosa(i)
+      endif
    enddo
    return                                                            
    end subroutine bl_gwdo_run
