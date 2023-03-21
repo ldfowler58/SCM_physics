@@ -21,7 +21,7 @@
                          utnp,vtnp,ttnp,qvtnp,qctnp,qitnp,qmixtnp,         &
                          cp,g,rovcp,rd,rovg,ep1,ep2,karman,xlv,rv,         &
                          dz8w2d,psfcpa,                                    &
-                         znt,ust,hpbl,psim,psih,                           &
+                         znt,ust,hpbl,dusfc,dvsfc,dtsfc,dqsfc,psim,psih,   &
                          xland,hfx,qfx,wspd,br,                            &
                          dt,kpbl1d,                                        &
                          exch_hx,exch_mx,                                  &
@@ -160,7 +160,11 @@
              intent(in   )   ::                                           p2d
 !
    real(kind=kind_phys),     dimension( its:ite )                            , &
-             intent(out  )   ::                                          hpbl
+             intent(out  )   ::                                          hpbl, &
+                                                                         dusfc,&
+                                                                         dvsfc,&
+                                                                         dtsfc,&
+                                                                         dqsfc
 !
    real(kind=kind_phys),     dimension( its:ite )                            , &
              intent(in   )   ::                                           ust, &
@@ -235,8 +239,6 @@
                                                                   hgamt,hgamq, &
                                                                     brdn,brup, &
                                                                     phim,phih, &
-                                                                  dusfc,dvsfc, &
-                                                                  dtsfc,dqsfc, &
                                                                         prpbl, &
                                                               wspd1,thermalli
 !
