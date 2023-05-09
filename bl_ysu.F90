@@ -1,20 +1,21 @@
 #define  NEED_B4B_DURING_CCPP_TESTING 1
 !=================================================================================================================
  module bl_ysu
- use ccpp_kinds,only: kind_phys
+ use machine,only: kind_phys
 
  implicit none
  private
  public:: bl_ysu_run          ,    &
           bl_ysu_init         ,    &
-          bl_ysu_final        ,    &
+          bl_ysu_finalize     ,    &
           bl_ysu_timestep_init,    &
-          bl_ysu_timestep_final
-
+          bl_ysu_timestep_finalize
 
  contains
 
-
+!> \section arg_table_bl_ysu_run
+!! \htmlinclude bl_ysu_run.html
+!!
 !=================================================================================================================
    subroutine bl_ysu_run(ux,vx,tx,qvx,qcx,qix,nmix,qmix,p2d,p2di,pi2d,     &
                          f_qc,f_qi,                                        &
@@ -119,7 +120,7 @@
 !
    integer,  intent(in   )   ::     its,ite,kte,kme
 
-   integer,  intent(in)      ::     ysu_topdown_pblmix 
+   logical,  intent(in)      ::     ysu_topdown_pblmix
 !
    integer,  intent(in)      ::     nmix
 !
@@ -339,6 +340,7 @@
 !
 !-------------------------------------------------------------------------------
 !
+
    klpbl = kte
 !
    cont=cp/g
@@ -691,7 +693,7 @@
 !
 !     enhance pbl by theta-li
 !
-   if (ysu_topdown_pblmix.eq.1)then
+   if (ysu_topdown_pblmix)then
      do i = its,ite
         kpblold(i) = kpbl(i)
         definebrup=.false.
@@ -798,7 +800,7 @@
        bfxpbl(i) = -0.15*thvx(i,1)/g*wm3/hpbl(i)
        dthvx(i)  = max(thvx(i,k+1)-thvx(i,k),tmin)
        we(i) = max(bfxpbl(i)/dthvx(i),-sqrt(wm2(i)))
-       if((qcxl(i,k)+qixl(i,k)).gt.0.01e-3.and.ysu_topdown_pblmix.eq.1)then
+       if((qcxl(i,k)+qixl(i,k)).gt.0.01e-3.and.ysu_topdown_pblmix)then
            if ( kpbl(i) .ge. 2) then
                 cloudflg(i)=.true. 
                 templ=thlix(i,k)*(p2di(i,k+1)/100000)**rovcp
@@ -1380,57 +1382,69 @@
 !
    end subroutine bl_ysu_run
 
+!> \section arg_table_bl_init_run
+!! \htmlinclude bl_ysu_init.html
+!!
 !=================================================================================================================
   subroutine bl_ysu_init (errmsg, errflg)
 
     character(len=*),        intent(out)   :: errmsg
     integer,                 intent(out)   :: errflg
 
-    ! This routine currently does nothing
+    ! This routine currently does nothing (DJS2023: Remove if not used)
 
     errmsg = ''
     errflg = 0
 
   end subroutine bl_ysu_init
 
+!> \section arg_table_bl_ysu_finalize
+!! \htmlinclude bl_ysu_finalize.html
+!!
 !=================================================================================================================
-  subroutine bl_ysu_final (errmsg, errflg)
+  subroutine bl_ysu_finalize (errmsg, errflg)
 
     character(len=*),        intent(out)   :: errmsg
     integer,                 intent(out)   :: errflg
 
-    ! This routine currently does nothing
+    ! This routine currently does nothing (DJS2023: Remove if not used)
 
     errmsg = ''
     errflg = 0
 
-  end subroutine bl_ysu_final
+  end subroutine bl_ysu_finalize
 
+!> \section arg_table_bl_ysu_timestep_init
+!! \htmlinclude bl_ysu_timestep_init.html
+!!
 !=================================================================================================================
   subroutine bl_ysu_timestep_init (errmsg, errflg)
 
     character(len=*),        intent(out)   :: errmsg
     integer,                 intent(out)   :: errflg
 
-    ! This routine currently does nothing
+    ! This routine currently does nothing (DJS2023: Remove if not used)
 
     errmsg = ''
     errflg = 0
 
   end subroutine bl_ysu_timestep_init
 
+!> \section arg_table_bl_ysu_timestep_finalize
+!! \htmlinclude bl_ysu_timestep_finalize.html
+!!
 !=================================================================================================================
-  subroutine bl_ysu_timestep_final (errmsg, errflg)
+  subroutine bl_ysu_timestep_finalize (errmsg, errflg)
 
     character(len=*),        intent(out)   :: errmsg
     integer,                 intent(out)   :: errflg
 
-    ! This routine currently does nothing
+    ! This routine currently does nothing (DJS2023: Remove if not used)
 
     errmsg = ''
     errflg = 0
 
-  end subroutine bl_ysu_timestep_final
+  end subroutine bl_ysu_timestep_finalize
 !-------------------------------------------------------------------------------
 !
 !-------------------------------------------------------------------------------
