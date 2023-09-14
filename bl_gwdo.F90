@@ -230,7 +230,7 @@ contains
 
        if (l_norot) then
           u1(i,k) = uproj(i,k)
-          v1(i,k) = uproj(i,k)
+          v1(i,k) = vproj(i,k)
        else
           u1(i,k) = uproj(i,k)*cosa(i) - vproj(i,k)*sina(i)
           v1(i,k) = uproj(i,k)*sina(i) + vproj(i,k)*cosa(i)
