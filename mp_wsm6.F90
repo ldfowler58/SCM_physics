@@ -67,10 +67,11 @@
 
 
 !=================================================================================================================
-!>\section arg_table_mp_wsm6_init
-!!\html\include mp_wsm6_init.html
-!!
- subroutine mp_wsm6_init(den0,denr,dens,cl,cpv,hail_opt,errmsg,errflg)
+!> Initilizes radar and variables
+!! \section arg_table_mp_wsm6_init Argument Table
+!! \htmlinclude mp_wsm6_init.html
+!! 
+subroutine mp_wsm6_init(den0,denr,dens,cl,cpv,hail_opt,errmsg,errflg)
 !=================================================================================================================
 
 !input arguments:
@@ -189,8 +190,8 @@
  end subroutine mp_wsm6_init
 
 !=================================================================================================================
-!>\section arg_table_mp_wsm6_finalize
-!!\html\include mp_wsm6_finalize.html
+!> \section arg_table_mp_wsm6_finalize
+!! \htmlinclude mp_wsm6_finalize.html
 !!
  subroutine mp_wsm6_finalize(errmsg,errflg)
 !=================================================================================================================
@@ -207,11 +208,11 @@
  end subroutine mp_wsm6_finalize
 
 !=================================================================================================================
-!>\section arg_table_mp_wsm6_run
-!!\html\include mp_wsm6_run.html
+!> \section arg_table_mp_wsm6_run
+!! \htmlinclude mp_wsm6_run.html
 !!
  subroutine mp_wsm6_run(t,q,qc,qi,qr,qs,qg,den,p,delz,delt,   &
-                        g,cpd,cpv,rd,rv,t0c,ep1,ep2,qmin,xls, &
+                        g,cpd,cpv,rd,rv,t0c,ep2,qmin,xls, &
                         xlv0,xlf0,den0,denr,cliq,cice,psat,   &
                         rain,rainncv,sr,snow,snowncv,graupel, &
                         graupelncv,rainprod2d,evapprod2d,     &
@@ -272,7 +273,7 @@
                                                             den0, &
                                                               rd, &
                                                               rv, &
-                                                             ep1, &
+!                                                             ep1, & WL2024: not used
                                                              ep2, &
                                                             qmin, &
                                                              xls, &
@@ -412,7 +413,6 @@
   real(kind=kind_phys):: temp
 
 !-----------------------------------------------------------------------------------------------------------------
-
 ! compute internal functions
 !
  cpmcal(x) = cpd*(1.-max(x,qmin))+max(x,qmin)*cpv
@@ -632,6 +632,7 @@
        if(qr(i,k).le.0.0) workr(i,k) = 0.0
      enddo
    enddo
+
    call nislfv_rain_plm(idim,kdim,den_tmp,denfac,t,delz_tmp,workr,denqrs1,  &
                         delqrs1,dtcld,1,1)
    call nislfv_rain_plm6(idim,kdim,den_tmp,denfac,t,delz_tmp,worka,         &
@@ -784,6 +785,7 @@
          t(i,k) = t(i,k) - xlf/cpm(i,k)*qi(i,k)
          qi(i,k) = 0.
        endif
+
 !---------------------------------------------------------------
 ! pihmf: homogeneous freezing of cloud water below -40c [HL A45]
 !        (T<-40C: C->I)
@@ -807,6 +809,7 @@
          t(i,k) = t(i,k) + xlf/cpm(i,k)*pfrzdtc
          qc(i,k) = qc(i,k)-pfrzdtc
        endif
+
 !---------------------------------------------------------------
 ! pgfrz: freezing of rain water [HL A20] [LFO 45]
 !        (T<T0, R->G)
@@ -1435,6 +1438,7 @@
          t(i,k) = t(i,k)+pcond(i,k)*xl(i,k)/cpm(i,k)*dtcld
      enddo
    enddo
+
 !
 !
 !----------------------------------------------------------------
