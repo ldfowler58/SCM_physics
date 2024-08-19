@@ -106,42 +106,36 @@
   type = real | kind = kind_phys
   intent = inout
 [qc]
-  standard_name = cloud_liquid_water_mixing_ratio
-  units = kg kg-1 
-  # standard_name = cloud_liquid_water_mixing_ratio
-  # standard_name = cloud_liquid_water_path
-# standard_name = cloud_liquid_water_mixing_ratio # no
-# qc is cloud water
-# standard_name = cloud_liquid_water_path  ## this is for radiation
-  long_name = cloud water mixing ratio wrt dry+vapor (no condensates)
+  standard_name = cloud_liquid_water_mixing_ratio_of_new_state
+  long_name = cloud water mixing ratio wrt dry+vapor (no condensates) updated by physics
+  units = kg kg-1
   dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
-  # standard_name = cloud_liquid_water_mixing_ratio # no
 [qi]
-  standard_name = cloud_ice_mixing_ratio
-  long_name = ice water mixing ratio
+  standard_name = cloud_ice_mixing_ratio_of_new_state
+  long_name = ice water mixing ratio updated by physics
   units = kg kg-1
   dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [qr]
-  standard_name = rain_mixing_ratio
-  long_name = rain mixing ratio
+  standard_name = rain_mixing_ratio_of_new_state
+  long_name = rain mixing ratio updated by physcis
   units = kg kg-1
   dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [qs]
-  standard_name = snow_mixing_ratio
-  long_name = snow mixing ratio
+  standard_name = snow_mixing_ratio_of_new_state
+  long_name = snow mixing ratio updated by physics
   units = kg kg-1
   dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [qg]
-  standard_name = graupel_mixing_ratio
-  long_name = graupel mixing ratio
+  standard_name = graupel_mixing_ratio_of_new_state
+  long_name = graupel mixing ratio updated by physics
   units = kg kg-1
   dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
@@ -216,13 +210,6 @@
   dimensions = ()
   type = real | kind = kind_phys
   intent = in
-[ep1]
-  standard_name = ratio_of_water_vapor_to_dry_air_gas_constants_minus_one
-  long_name = ratio of water vapor to dry air gas constants minus one
-  units = none
-  dimensions = ()
-  type = real | kind = kind_phys
-  intent = in
 [ep2]
   standard_name = ratio_of_dry_air_to_water_vapor_gas_constants
   long_name = ratio of dry air to water vapor gas constants
@@ -238,15 +225,15 @@
   type = real | kind = kind_phys
   intent = in
 [xls]
-  standard_name = latent_heat_of_sublimation_of_water_at_0C
-  long_name = latent heat of sublimation of water at 0C
+  standard_name = latent_heat_of_sublimation_of_ice_snow_at_0C
+  long_name = latent heat of sublimation of snow/ice at 0C
   units = J kg-1
   dimensions = ()
   type = real | kind = kind_phys
   intent = in
 [xlv0]
   standard_name = latent_heat_of_vaporization_of_water_at_0C
-  long_name = latent heat of vaporization of water at 0C
+  long_name = latent heat of evaporation
   units = J kg-1
   dimensions = ()
   type = real | kind = kind_phys
@@ -294,17 +281,16 @@
   type = real | kind = kind_phys
   intent = in
 [rain]
-  standard_name = lwe_thickness_of_explicit_rain_amount
-  long_name = accumulated total precipitation
-  units = m
+  standard_name = lwe_thickness_of_rain_amount_on_dynamics_timestep_in_mm
+  long_name = total rain at this time step
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
 [rainncv]
-  standard_name = lwe_thickness_of_precipitation_amount_on_dynamics_timestep
-  # standard_name = lwe_thickness_of_explicit_rain_amount
-  long_name = total rain at this time step
-  units = m
+  standard_name = lwe_thickness_of_explicit_rain_amount_in_mm
+  long_name = explicit rain on physics timestep
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
@@ -316,32 +302,30 @@
   type = real | kind = kind_phys
   intent = inout
 [snow]
-  standard_name = lwe_thickness_of_snow_amount
-  long_name = accumulated surface snow
-  units = m
+  standard_name = lwe_thickness_of_snow_amount_on_dynamics_timestep_in_mm
+  long_name = snow fall at this time step
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
 [snowncv]
-  standard_name = lwe_thickness_of_snow_amount_on_dynamics_timestep
-  # standard_name = lwe_thickness_of_snow_amount
-  long_name = snow amount from previous timestep
-  units = m
+  standard_name = lwe_thickness_of_snow_amount_in_mm
+  long_name = explicit snow fall on physics timestep
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
 [graupel]
-  standard_name = lwe_thickness_of_graupel_amount
-  long_name = accumulated surface graupel
-  units = m
+  standard_name = lwe_thickness_of_graupel_amount_on_dynamics_timestep_in_mm
+  long_name = graupel fall at this time step
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
 [graupelncv]
-  standard_name = lwe_thickness_of_graupel_amount_on_dynamics_timestep
-  # standard_name = lwe_thickness_of_graupel_amount
-  long_name = graupel amount from previous timestep
-  units = m
+  standard_name = lwe_thickness_of_graupel_amount_in_mm
+  long_name = explicit graupel fall on physics timestep
+  units = mm
   dimensions = (horizontal_loop_extent)
   type = real | kind = kind_phys
   intent = inout
@@ -367,21 +351,21 @@
   type = integer
   intent = in
 [ite]
-  standard_name = number_of_points_in_x_direction_for_this_MPI_rank
-  long_name = number of points in x direction for this MPI rank
+  standard_name = horizontal_end
+  long_name = horizontal end
   units = count
   dimensions = ()
   type = integer
   intent = in
 [kts]
-  standard_name = vertical_dimension_start
+  standard_name = vertical_begin
   long_name = vertical dimension start
-  units = none
+  units = count
   dimensions = ()
   type = integer
   intent = in
 [kte]
-  standard_name = vertical_dimension_end
+  standard_name = vertical_end
   long_name = vertical dimension end
   units = count
   dimensions = ()

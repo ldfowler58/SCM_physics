@@ -59,35 +59,35 @@
   standard_name = air_temperature
   long_name = air temperature
   units =  K
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = in
 [qc]
-  standard_name = cloud_condensed_water_mixing_ratio
+  standard_name = cloud_liquid_water_mixing_ratio
   long_name = cloud condensed water mixing ratio
   units = kg kg-1
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = in
 [qi]
-  standard_name = ice_water_mixing_ratio
+  standard_name = cloud_ice_mixing_ratio
   long_name = ice water mixing ratio
   units = kg kg-1
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = in
 [qs]
   standard_name = snow_mixing_ratio
   long_name = snow mixing ratio
   units = kg kg-1
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = in
 [rho]
   standard_name = air_density
   long_name = air density
   units = kg m-3
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = in
 [qmin]
@@ -105,8 +105,8 @@
   type = real | kind = kind_phys
   intent = in
 [re_qc_bg]
-  standard_name = background_cloud_condensed_water_effective_radius
-  long_name = background cloud condensed water effective radius
+  standard_name = background_cloud_liquid_water_effective_radius
+  long_name = background cloud liquid water effective radius
   units = m
   dimensions = ()
   type = real | kind = kind_phys
@@ -126,8 +126,8 @@
   type = real | kind = kind_phys
   intent = in
 [re_qc_max]
-  standard_name = maximum_cloud_condensed_water_effective_radius
-  long_name = maximum cloud condensed water effective radius
+  standard_name = maximum_cloud_liquid_water_effective_radius
+  long_name = maximum cloud liquid water effective radius
   units = m
   dimensions = ()
   type = real | kind = kind_phys
@@ -147,24 +147,24 @@
   type = real | kind = kind_phys
   intent = in
 [re_qc]
-  standard_name = cloud_condensed_water_effective_radius
-  long_name = cloud condensed water effective radius
+  standard_name = effective_radius_of_stratiform_cloud_liquid_water_particle_in_meter
+  long_name = eff. radius of cloud liquid water particle in meter
   units = m
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [re_qi]
-  standard_name = ice_water_effective_radius
-  long_name = ice water effective radius
+  standard_name = effective_radius_of_stratiform_cloud_ice_particle_in_meter
+  long_name = eff. radius of cloud ice water particle in meter
   units = m
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [re_qs]
-  standard_name = snow_effective_radius
-  long_name = snow effective radius
+  standard_name = effective_radius_of_stratiform_cloud_snow_particle_in_meter
+  long_name = effective radius of cloud snow particle in meter
   units = m
-  dimensions = (horizontal_begin:horizontal_end,vertical_layer_dimension)
+  dimensions = (horizontal_loop_extent,vertical_layer_dimension)
   type = real | kind = kind_phys
   intent = inout
 [its]
@@ -182,14 +182,14 @@
   type = integer
   intent = in
 [kts]
-  standard_name = vertical_dimension_start
+  standard_name = vertical_begin
   long_name = vertical dimension start
-  units = none
+  units = count
   dimensions = ()
   type = integer
   intent = in
 [kte]
-  standard_name = vertical_dimension_end
+  standard_name = vertical_end
   long_name = vertical dimension end
   units = count
   dimensions = ()
