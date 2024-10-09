@@ -1,3 +1,64 @@
+!=================================================================================================================
+ module cu_ntiedtke_common
+ use ccpp_kind_types,only: kind_phys
+
+
+ implicit none
+ save
+
+ real(kind=kind_phys):: alf
+ real(kind=kind_phys):: als
+ real(kind=kind_phys):: alv
+ real(kind=kind_phys):: cpd
+ real(kind=kind_phys):: g
+ real(kind=kind_phys):: rd
+ real(kind=kind_phys):: rv
+
+ real(kind=kind_phys),parameter:: t13   = 1.0/3.0
+ real(kind=kind_phys),parameter:: tmelt = 273.16
+ real(kind=kind_phys),parameter:: c1es  = 610.78
+ real(kind=kind_phys),parameter:: c3les = 17.2693882
+ real(kind=kind_phys),parameter:: c3ies = 21.875
+ real(kind=kind_phys),parameter:: c4les = 35.86
+ real(kind=kind_phys),parameter:: c4ies = 7.66
+
+ real(kind=kind_phys),parameter:: rtwat = tmelt
+ real(kind=kind_phys),parameter:: rtber = tmelt-5.
+ real(kind=kind_phys),parameter:: rtice = tmelt-23.
+
+ integer,parameter:: momtrans = 2
+ real(kind=kind_phys),parameter:: entrdd  = 2.0e-4
+ real(kind=kind_phys),parameter:: cmfcmax = 1.0
+ real(kind=kind_phys),parameter:: cmfcmin = 1.e-10
+ real(kind=kind_phys),parameter:: cmfdeps = 0.30
+ real(kind=kind_phys),parameter:: zdnoprc = 2.0e4
+ real(kind=kind_phys),parameter:: cprcon  = 1.4e-3
+ real(kind=kind_phys),parameter:: pgcoef  = 0.7
+
+ real(kind=kind_phys):: rcpd
+ real(kind=kind_phys):: c2es
+ real(kind=kind_phys):: c5les
+ real(kind=kind_phys):: c5ies
+ real(kind=kind_phys):: r5alvcp
+ real(kind=kind_phys):: r5alscp
+ real(kind=kind_phys):: ralvdcp
+ real(kind=kind_phys):: ralsdcp
+ real(kind=kind_phys):: ralfdcp
+ real(kind=kind_phys):: vtmpc1
+ real(kind=kind_phys):: zrg
+
+ logical,parameter:: nonequil = .true.
+ logical,parameter:: lmfpen   = .true.
+ logical,parameter:: lmfmid   = .true.
+ logical,parameter:: lmfscv   = .true.
+ logical,parameter:: lmfdd    = .true.
+ logical,parameter:: lmfdudv  = .true.
+
+
+!=================================================================================================================
+ end module cu_ntiedtke_common
+!=================================================================================================================
+
  module cu_ntiedtke
  use ccpp_kind_types,only: kind_phys
  use cu_ntiedtke_common
@@ -19,7 +80,7 @@
 !!
  subroutine cu_ntiedtke_init(con_cp,con_rd,con_rv,con_xlv,con_xls,con_xlf,con_grav,errmsg,errflg)
 !=================================================================================================================
-   ! implicit none
+
 !input arguments:
  real(kind=kind_phys),intent(in):: &
     con_cp,  &
@@ -126,7 +187,7 @@
 
 !--- input arguments:
       integer,intent(in):: lq,km,km1
-      integer,intent(in),dimension(:):: lndj
+      real,intent(in),dimension(:):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in):: dt
       real(kind=kind_phys),intent(in),dimension(:):: dx
@@ -350,7 +411,7 @@
 
 !--- input arguments:
       integer,intent(in):: klev,klon,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in):: ztmst
       real(kind=kind_phys),intent(in),dimension(klon):: dx
@@ -1210,7 +1271,7 @@
 
 !--- input arguments:
       integer,intent(in):: klon,klev,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in),dimension(klon):: qfx,hfx
       real(kind=kind_phys),intent(in),dimension(klon,klev):: pap,pgeo
@@ -1776,7 +1837,7 @@
 
 !--- input arguments:
       integer,intent(in):: klev,klon,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: klwmin
       integer,intent(in),dimension(klon):: kdpl
 
@@ -2298,7 +2359,7 @@
       logical,intent(in),dimension(klon):: ldcum
 
       integer,intent(in):: klev
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: kcbot,kctop
 
       real(kind=kind_phys),intent(in),dimension(klon):: pmfub
@@ -2753,7 +2814,7 @@
       logical,intent(in),dimension(klon):: ldcum
 
       integer,intent(in):: klev
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: kcbot,kctop,kdtop
 
       real(kind=kind_phys),intent(in):: ztmst
@@ -3529,67 +3590,5 @@
 
 !=================================================================================================================
  end module cu_ntiedtke
-!=================================================================================================================
-
-
- !=================================================================================================================
- module cu_ntiedtke_common
- use ccpp_kind_types,only: kind_phys
-
-
- implicit none
- save
-
- real(kind=kind_phys):: alf
- real(kind=kind_phys):: als
- real(kind=kind_phys):: alv
- real(kind=kind_phys):: cpd
- real(kind=kind_phys):: g
- real(kind=kind_phys):: rd
- real(kind=kind_phys):: rv
-
- real(kind=kind_phys),parameter:: t13   = 1.0/3.0
- real(kind=kind_phys),parameter:: tmelt = 273.16
- real(kind=kind_phys),parameter:: c1es  = 610.78
- real(kind=kind_phys),parameter:: c3les = 17.2693882
- real(kind=kind_phys),parameter:: c3ies = 21.875
- real(kind=kind_phys),parameter:: c4les = 35.86
- real(kind=kind_phys),parameter:: c4ies = 7.66
-
- real(kind=kind_phys),parameter:: rtwat = tmelt
- real(kind=kind_phys),parameter:: rtber = tmelt-5.
- real(kind=kind_phys),parameter:: rtice = tmelt-23.
-
- integer,parameter:: momtrans = 2
- real(kind=kind_phys),parameter:: entrdd  = 2.0e-4
- real(kind=kind_phys),parameter:: cmfcmax = 1.0
- real(kind=kind_phys),parameter:: cmfcmin = 1.e-10
- real(kind=kind_phys),parameter:: cmfdeps = 0.30
- real(kind=kind_phys),parameter:: zdnoprc = 2.0e4
- real(kind=kind_phys),parameter:: cprcon  = 1.4e-3
- real(kind=kind_phys),parameter:: pgcoef  = 0.7
-
- real(kind=kind_phys):: rcpd
- real(kind=kind_phys):: c2es
- real(kind=kind_phys):: c5les
- real(kind=kind_phys):: c5ies
- real(kind=kind_phys):: r5alvcp
- real(kind=kind_phys):: r5alscp
- real(kind=kind_phys):: ralvdcp
- real(kind=kind_phys):: ralsdcp
- real(kind=kind_phys):: ralfdcp
- real(kind=kind_phys):: vtmpc1
- real(kind=kind_phys):: zrg
-
- logical,parameter:: nonequil = .true.
- logical,parameter:: lmfpen   = .true.
- logical,parameter:: lmfmid   = .true.
- logical,parameter:: lmfscv   = .true.
- logical,parameter:: lmfdd    = .true.
- logical,parameter:: lmfdudv  = .true.
-
-
-!=================================================================================================================
- end module cu_ntiedtke_common
 !=================================================================================================================
 
