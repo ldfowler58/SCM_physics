@@ -75,8 +75,8 @@
 
 
 !=================================================================================================================
-!>\section arg_table_cu_ntiedtke_init
-!!\html\include cu_ntiedtke_init.html
+!> \section arg_table_cu_ntiedtke_init
+!! \htmlinclude cu_ntiedtke_init.html
 !!
  subroutine cu_ntiedtke_init(con_cp,con_rd,con_rv,con_xlv,con_xls,con_xlf,con_grav,errmsg,errflg)
 !=================================================================================================================
@@ -123,8 +123,8 @@
  end subroutine cu_ntiedtke_init
 
 !=================================================================================================================
-!>\section arg_table_cu_ntiedtke_finalize
-!!\html\include cu_ntiedtke_finalize.html
+!> \section arg_table_cu_ntiedtke_finalize
+!! \htmlinclude cu_ntiedtke_finalize.html
 !!
  subroutine cu_ntiedtke_finalize(errmsg,errflg)
 !=================================================================================================================
@@ -141,8 +141,8 @@
  end subroutine cu_ntiedtke_finalize
 
 !=================================================================================================================
-!>\section arg_table_cu_ntiedtke_run
-!!\html\include cu_ntiedtke_run.html
+!> \section arg_table_cu_ntiedtke_run
+!! \htmlinclude cu_ntiedtke_run.html
 !!
 !     level 1 subroutine 'cu_ntiedkte_run'
       subroutine cu_ntiedtke_run(pu,pv,pt,pqv,pqc,pqi,pqvf,ptf,poz,pzz,pomg, &
@@ -187,7 +187,7 @@
 
 !--- input arguments:
       integer,intent(in):: lq,km,km1
-      integer,intent(in),dimension(:):: lndj
+      real,intent(in),dimension(:):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in):: dt
       real(kind=kind_phys),intent(in),dimension(:):: dx
@@ -411,7 +411,7 @@
 
 !--- input arguments:
       integer,intent(in):: klev,klon,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in):: ztmst
       real(kind=kind_phys),intent(in),dimension(klon):: dx
@@ -1271,7 +1271,7 @@
 
 !--- input arguments:
       integer,intent(in):: klon,klev,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
 
       real(kind=kind_phys),intent(in),dimension(klon):: qfx,hfx
       real(kind=kind_phys),intent(in),dimension(klon,klev):: pap,pgeo
@@ -1837,7 +1837,7 @@
 
 !--- input arguments:
       integer,intent(in):: klev,klon,klevp1,klevm1
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: klwmin
       integer,intent(in),dimension(klon):: kdpl
 
@@ -2359,7 +2359,7 @@
       logical,intent(in),dimension(klon):: ldcum
 
       integer,intent(in):: klev
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: kcbot,kctop
 
       real(kind=kind_phys),intent(in),dimension(klon):: pmfub
@@ -2814,7 +2814,7 @@
       logical,intent(in),dimension(klon):: ldcum
 
       integer,intent(in):: klev
-      integer,intent(in),dimension(klon):: lndj
+      real,intent(in),dimension(klon):: lndj !WL:2024 changed from integer to real, since the type of this variable diffs from the rest of the mesoscale_reference suite
       integer,intent(in),dimension(klon):: kcbot,kctop,kdtop
 
       real(kind=kind_phys),intent(in):: ztmst
